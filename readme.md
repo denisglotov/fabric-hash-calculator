@@ -8,18 +8,17 @@ state hash (Merkle tree head).
 Build
 -----
 
-1. Install the required packages.
+Note, use the Golang version compatible to build HL Fabric:
+http://hyperledger-fabric.readthedocs.io/en/release/dev-setup/devenv.html#prerequisites.
 
-        sudo apt install libltdl-dev
+Then just run
 
-2. Make sure your `GOPATH` has `github.com/hyperledger/fabric` sources. If
-   not, download fabric code:
+    [ -v GOPATH ] || export GOPATH=$HOME
+    go get github.com/denisglotov/fabric-hash-calculator
 
-        export GOPATH=$HOME
-        mkdir -p mkdir -p ~/src/github.com/hyperledger
-        cd ~/src/github.com/hyperledger
-        git clone https://github.com/hyperledger/fabric.git
+If you see the error about absence of `ltdl.h` file, install the missing
+package:
 
-3. Build and run this source.
+    sudo apt install libltdl-dev
 
-        go build
+Then use the resulting binary at `$GOPATH/bin`.
