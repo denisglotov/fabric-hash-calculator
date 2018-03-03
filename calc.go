@@ -1,13 +1,15 @@
 package main
 
 import (
-	cb "github.com/hyperledger/fabric/protos/common"
 	"encoding/hex"
 	"fmt"
+	cb "github.com/hyperledger/fabric/protos/common"
 	"log"
+	"strings"
 )
 
 func strToHex(str string) []byte {
+	str = strings.TrimPrefix(str, "0x")
 	str_bytes := []byte(str)
 	dst := make([]byte, hex.DecodedLen(len(str_bytes)))
 	n, err := hex.Decode(dst, str_bytes)
@@ -18,11 +20,20 @@ func strToHex(str string) []byte {
 }
 
 func main() {
+	fmt.Print("Enter previous hash: ")
+	var prevHashStr string
+	fmt.Scanln(&prevHashStr)
+	prevHash := strToHex(prevHashStr)
+
+	fmt.Print("Enter data hash: ")
+	var dataHashStr string
+	fmt.Scanln(&dataHashStr)
+	dataHash := strToHex(dataHashStr)
+
 	h := cb.BlockHeader{
-		Number: 1,
-		PreviousHash: strToHex(
-			"369ae6cee7c2c2b781cad7d41e7299772b1fb4102c0617d35b4375db4d791a08"),
-		DataHash: strToHex(
-			"fd27225b06b21846335a5feafba57c1d55eee456bad19723b326f8810defd7d6")}
+		Number:       1,
+		PreviousHash: prevHash,
+		DataHash:     dataHash}
+
 	fmt.Println("Current block hash: ", hex.EncodeToString(h.Hash()))
 }
