@@ -10,9 +10,9 @@ import (
 
 func strToHex(str string) []byte {
 	str = strings.TrimPrefix(str, "0x")
-	str_bytes := []byte(str)
-	dst := make([]byte, hex.DecodedLen(len(str_bytes)))
-	n, err := hex.Decode(dst, str_bytes)
+	strBytes := []byte(str)
+	dst := make([]byte, hex.DecodedLen(len(strBytes)))
+	n, err := hex.Decode(dst, strBytes)
 	if err != nil {
 		log.Fatal(err)
 	}
